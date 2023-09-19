@@ -1,0 +1,69 @@
+data "aws_ami" "al" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.1.20230912.0-kernel-6.1-x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["137112412989"] # Canonical
+}
+
+
+resource "aws_instance" "web" {
+  ami           = data.aws_ami.al.id
+  instance_type = "t2.micro"
+  vpc_security_group_ids = [ aws_security_group.allow_ssh_http.id ]
+  key_name = "deployer-key"
+}
+
+resource "aws_eip" "ec2_eip" {
+  instance = aws_instance.web.id
+}
+
+resource "aws_security_group" "allow_ssh_http" {
+  name        = "allow_ssh_http"
+  description = "Allow inbound traffic"
+  vpc_id      = "vpc-0079e1e92a942f205"
+
+  ingress {
+    description      = "SSH"
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    description      = "HTTP"
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+}
+
+output "elastic_ip" {
+  value = aws_eip.ec2_eip.public_ip
+}
+
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "deployer-key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDI1vn54yigXEXIsoVcqtNescpnvHza4nS8izP/0ZfMuPYZf2bNvtvlJqSPWb/Qjmx+4ib5PlDYiZ67rkEAvusXjidZjIn/RTYB9Ge7IJw/C34ljhjhANxFMUnA8Vk31StKTCsATXVMzNVXVUxlqi5jE4YuLipYluiwOWHOD0l0R5RDkHfD1vyYqTJDMYy3iM8H6voyTuZiAuC+W3e38ZDEMJmXH8zQens6C9Y5CHd4LlLVujaPlSbVdTgmxPtSCHrPPg7dviw3O84H60yD+lXXf9NZ/dNAjd7eGQusQ734qT10j5uE1NyVUX3wV+yfuhXIRGr3NlRRwYsle/RhKtKIvCumQkdtByWrasoHi+fM5u9KWCyF1xCzef6CvoqpQW5V0Z5IdVQ0Gkhi8BjlY+fO/JO5eY/uZE+MqtNnXY0T2w2aTw6uTSmOJ6CH3WjEPVGvcndXc3iI4ZNdyz80GS+6d8cb5WuHISTv+vQZWfDDNs/vibUzDQIqFm2ygSOS+GU= hamletsargsyan@Hamlets-MacBook-Pro.local"
+}
