@@ -1,3 +1,7 @@
+provider "aws" {
+}
+
+
 data "aws_ami" "al" {
   most_recent = true
 
@@ -20,6 +24,7 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
   vpc_security_group_ids = [ aws_security_group.allow_ssh_http.id ]
   key_name = "deployer-key"
+  user_data = file("user_data.sh")
 }
 
 resource "aws_eip" "ec2_eip" {
@@ -42,8 +47,8 @@ resource "aws_security_group" "allow_ssh_http" {
 
   ingress {
     description      = "HTTP"
-    from_port        = 80
-    to_port          = 80
+    from_port        = 8080
+    to_port          = 8080
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
@@ -57,6 +62,40 @@ resource "aws_security_group" "allow_ssh_http" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
+
+resource "aws_db_instance" "rds_instance" {
+  allocated_storage      = 20
+  db_name                = "mydb"
+  engine                 = "mysql"
+  engine_version         = "5.7"
+  instance_class         = "db.t2.micro"
+  username               = "wordpress"
+  password               = "wordpress"
+  parameter_group_name   = "default.mysql5.7"
+  skip_final_snapshot    = true
+  vpc_security_group_ids = [aws_security_group.allow_to_db.id]
+}
+
+resource "aws_security_group" "allow_to_db" {
+  name        = "allow_to_db"
+  description = "Allow inbound traffic to db"
+  vpc_id      = "vpc-0079e1e92a942f205"
+
+  ingress {
+    from_port = 3306
+    to_port = 3306
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+ }
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+}
+
 
 output "elastic_ip" {
   value = aws_eip.ec2_eip.public_ip
