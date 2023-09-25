@@ -18,12 +18,12 @@ jobs:
       - name: Git clone repository
         run: git clone git@github.com:hamo050/aca_project.git
 
-    - name: Configure AWS Credentials 2
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-region: us-east-1
-        aws-access-key-id: ${{ secrets.AWS_SECRET_KEY }}
-        aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_SECRET_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
 
       - name: 'Terraform Init'
