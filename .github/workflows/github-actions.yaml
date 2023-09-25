@@ -12,7 +12,7 @@ jobs:
       - name: echo 
         run: echo  `pwd`
       - name: ls
-        run: echo  `ls -l`
+        run: echo  `ls -l ../`
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
         with:
