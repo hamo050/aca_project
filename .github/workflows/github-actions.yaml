@@ -9,10 +9,11 @@ jobs:
 #      run:
 #        working-directory: aca_project
     steps:
-      - name: echo 
-        run: echo  `pwd`
-      - name: ls
-        run: echo  `ls -l ../`
+      - name: Setup SSH
+        uses: MrSquaare/ssh-setup-action@v1
+        with:
+          host: github.com
+          private-key: ${{ secrets.SSH_PRIVATE_KEY }}    
       - name: Git clone repository
         run: git clone git@github.com:hamo050/aca_project.git
       - name: Setup Terraform
