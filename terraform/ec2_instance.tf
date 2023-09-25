@@ -85,7 +85,7 @@ resource "aws_security_group" "allow_to_db" {
     from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["172.31.0.0/16"]
  }
   egress {
     from_port        = 0
@@ -96,7 +96,9 @@ resource "aws_security_group" "allow_to_db" {
   }
 }
 
-
+output "db_ip" {
+  value = aws_db_instance.rds_instance.address
+}
 output "elastic_ip" {
   value = aws_eip.ec2_eip.public_ip
 }

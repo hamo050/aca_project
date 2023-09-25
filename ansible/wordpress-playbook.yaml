@@ -11,7 +11,7 @@
         ports:
           - "8080:80"
         env:
-          MYSQL_PASSWORD: wordpress
-          MYSQL_DATABASE: mydb
-          MYSQL_USER: wordpress
-          MYSQL_HOST: terraform-20230922122021403900000001.cr8gqagh3l5w.us-east-1.rds.amazonaws.com
+          WORDPRESS_DB_PASSWORD: wordpress
+          WORDPRESS_DB_NAME: mydb
+          WORDPRESS_DB_USER: wordpress
+          WORDPRESS_DB_HOST: "{{ mysql_host }}"
