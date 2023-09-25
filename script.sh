@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "RUN Terrafor"
 cd aca_project/terraform
-terraform init
+sudo terraform init
 terraform apply -auto-approve  
 
 terraform output | grep elastic_ip | awk -F'"' '/"/ {print $2}' >> ../ansible/inventory
