@@ -5,9 +5,9 @@ jobs:
   example-job:
     name: Deploy Wordpress on aws      
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: aca_project
+#    defaults:
+#      run:
+#        working-directory: aca_project
     steps:
       - name: echo
         run: echo  `ls -l`
