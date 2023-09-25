@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "RUN Terrafor"
-cd ./terraform
+cd aca_project/terraform
 terraform apply -auto-approve  
 
 terraform output | grep elastic_ip | awk -F'"' '/"/ {print $2}' >> ../ansible/inventory
