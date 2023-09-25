@@ -13,6 +13,8 @@ jobs:
         run: echo  `pwd`
       - name: ls
         run: echo  `ls -l ../`
+      - name: Git clone repository
+        run: git clone git@github.com:hamo050/aca_project.git
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
         with:
