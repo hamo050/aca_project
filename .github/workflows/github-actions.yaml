@@ -10,7 +10,7 @@ jobs:
         working-directory: .
     steps:
       - name: echo
-        run: echo `pwd`
+        run: echo `pwd` `ls -la`
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
         with:
