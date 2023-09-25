@@ -29,7 +29,7 @@ jobs:
         working-directory: 'aca_project/terraform'
         shell: bash
         run: |
-          terraform apply -auto-approve
+          terraform apply -auto-approve -input=false
      
       - name: Make the script files executable
         run: chmod +x aca_project/script.sh
