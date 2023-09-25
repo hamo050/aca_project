@@ -1,0 +1,17 @@
+name: GitHub Actions
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4
+      - name: Make the script files executable
+        run: chmod +x my-script.sh my-other-script.sh
+      - name: Run the scripts
+        run: |
+          ./script.sh
