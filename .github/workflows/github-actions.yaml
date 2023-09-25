@@ -10,7 +10,7 @@ jobs:
         working-directory: aca_project
     steps:
       - name: echo
-        run: echo  `ls -la`
+        run: echo  `ls -l`
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1.2.1
         with:
