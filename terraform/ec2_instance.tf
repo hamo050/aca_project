@@ -1,6 +1,3 @@
-provider "aws" {
-}
-
 
 data "aws_ami" "al" {
   most_recent = true
