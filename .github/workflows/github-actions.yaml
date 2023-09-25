@@ -32,4 +32,4 @@ jobs:
         run: chmod +x script.sh
       - name: Run the scripts
         run: |
-          ./script.sh
+          aca_project/script.sh
