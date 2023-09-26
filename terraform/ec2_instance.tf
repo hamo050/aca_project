@@ -83,13 +83,13 @@ resource "aws_db_instance" "rds_instance" {
 resource "aws_security_group" "allow_to_db" {
   name        = "allow_to_db"
   description = "Allow inbound traffic to db"
-  vpc_id      = "vpc-0079e1e92a942f205"
+  vpc_id      = data.aws_vpc.vpc.id
 
   ingress {
     from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    cidr_blocks = ["172.31.0.0/16"]
+    cidr_blocks = [data.aws_vpc.vpc.cidr_block]
  }
   egress {
     from_port        = 0
