@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
         TF_VERSION: latest
-        TF_WORKING_DIR: aca_project/terraform
+        TF_WORKING_DIR: terraform
 
     steps:
       - name: Check out repository code
