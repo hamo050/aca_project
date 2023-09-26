@@ -32,10 +32,13 @@ resource "aws_eip" "ec2_eip" {
   instance = aws_instance.web.id
 }
 
+data "aws_vpc" "vpc" {
+}
+
 resource "aws_security_group" "allow_ssh_http" {
   name        = "allow_ssh_http"
   description = "Allow inbound traffic"
-  vpc_id      = "vpc-0079e1e92a942f205"
+  vpc_id      = data.aws_vpc.vpc.id
 
   ingress {
     description      = "SSH"
