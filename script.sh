@@ -1,5 +1,5 @@
 #!/bin/bash
-cd aca_project/terraform
+cd terraform
 terraform output | grep elastic_ip | awk -F'"' '/"/ {print $2}' >> ../ansible/inventory
 
 mysql_host=$(terraform output | grep db_ip | awk -F'"' '/"/ {print $2}')
