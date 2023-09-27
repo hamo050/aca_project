@@ -63,4 +63,4 @@ jobs:
         run: chmod +x script.sh
       - name: Run the scripts
         run: |
-          script.sh
+          ./script.sh
