@@ -6,6 +6,6 @@ mysql_host=$(terraform output | grep db_ip | awk -F'"' '/"/ {print $2}')
 cd ..
 
 echo "RUN Ansible"
-ansible-playbook ansible/wordpress-playbook.yaml -i ansible/inventory -e mysql_host=$mysql_host --ssh-common-args='-o StrictHostKeyChecking=no'
+ansible-playbook ansible/wordpress-playbook.yaml -i ansible/inventory -e mysql_host=$mysql_host  --ssh-common-args='-o StrictHostKeyChecking=no'
 
 echo "Project Successfully completed!"
