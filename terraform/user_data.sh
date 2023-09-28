@@ -8,4 +8,4 @@ pip install docker==4.4.4
 #sudo yum install  docker -y 
 #sudo systemctl start docker
 #sudo systemctl enable docker
-pip install ansible
+#pip install ansible
