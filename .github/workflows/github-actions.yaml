@@ -64,7 +64,7 @@ jobs:
           terraform output | grep elastic_ip | awk -F'"' '/"/ {print $2}' >> ../ansible/inventory
           mysql_host=$(terraform output | grep db_ip | awk -F'"' '/"/ {print $2}')
           cd ..
-          ansible-playbook ansible/wordpress-playbook.yaml -i ansible/inventory -e mysql_host=$mysql_host -e wp_pass=${{ env.WORDPRESS_DB_PASSWORD}} --ssh-common-args='-o StrictHostKeyChecking=no'
+          ansible-playbook ansible/wordpress-playbook.yaml -i ansible/inventory -e "mysql_host=$mysql_host wp_pass=${{ env.WORDPRESS_DB_PASSWORD}}" --ssh-common-args='-o StrictHostKeyChecking=no'
 
 
 #      - name: Make the script files executable
