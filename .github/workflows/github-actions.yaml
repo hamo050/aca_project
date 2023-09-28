@@ -60,7 +60,7 @@ jobs:
       - name: Run ansible script
         shell: bash
         env:
-          wp_pass: ${{secrets.WORDPRESS_DB_PASSWORD}}
+          wp_pass: ${{ env.WORDPRESS_DB_PASSWORD }}
 
         run: |
           cd terraform
