@@ -1,5 +1,7 @@
 #!/bin/bash
 cd terraform
+terraform init
+terraform apply -auto-approve
 terraform output | grep elastic_ip | awk -F'"' '/"/ {print $2}' >> ../ansible/inventory
 
 mysql_host=$(terraform output | grep db_ip | awk -F'"' '/"/ {print $2}')
