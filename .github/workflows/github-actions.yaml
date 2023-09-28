@@ -66,18 +66,18 @@ jobs:
 #         echo -e "${{secrets.SSH_PRIVATE_KEY}}" > /home/runner/.ssh/id_rsa
 #         chmod 700 /home/runner/.ssh/id_rsa
 #
-#      - name: Run ansible script
-#        shell: bash
-#        run: |
-#          cd terraform
-#          terraform output | grep elastic_ip | awk -F'"' '/"/ {print $2}' >> ../ansible/inventory
-#          mysql_host=$(terraform output | grep db_ip | awk -F'"' '/"/ {print $2}')
-#          cd ..
-#          ansible-playbook ansible/wordpress-playbook.yaml -i ansible/inventory -e mysql_host=$mysql_host -e wp_pass=${{secrets.WORDPRESS_DB_PASSWORD}}--ssh-common-args='-o StrictHostKeyChecking=no'
-
-
-      - name: Make the script files executable
-        run: chmod +x script.sh
-      - name: Run the scripts
+      - name: Run ansible script
+        shell: bash
         run: |
-         ./script.sh
+          cd terraform
+          terraform output | grep elastic_ip | awk -F'"' '/"/ {print $2}' >> ../ansible/inventory
+          mysql_host=$(terraform output | grep db_ip | awk -F'"' '/"/ {print $2}')
+          cd ..
+          ansible-playbook ansible/wordpress-playbook.yaml -i ansible/inventory -e mysql_host=$mysql_host -e wp_pass=${{secrets.WORDPRESS_DB_PASSWORD}}--ssh-common-args='-o StrictHostKeyChecking=no'
+
+
+#      - name: Make the script files executable
+#        run: chmod +x script.sh
+#      - name: Run the scripts
+#        run: |
+#         ./script.sh
