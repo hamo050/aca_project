@@ -11,7 +11,7 @@
         ports:
           - "8080:80"
         env:
-          WORDPRESS_DB_PASSWORD: "{{wp_pass}}"
+          WORDPRESS_DB_PASSWORD: "{{ wp_pass }}"
           WORDPRESS_DB_NAME: mydb
           WORDPRESS_DB_USER: wordpress_user
           WORDPRESS_DB_HOST: "{{ mysql_host }}"
