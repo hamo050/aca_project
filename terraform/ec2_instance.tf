@@ -82,7 +82,7 @@ resource "aws_db_instance" "rds_instance" {
   engine                 = "mysql"
   engine_version         = "5.7"
   instance_class         = "db.t2.micro"
-  username               = "wordpress"
+  username               = "wordpress_user"
   password               = "wordpress"
   parameter_group_name   = "default.mysql5.7"
   skip_final_snapshot    = true
