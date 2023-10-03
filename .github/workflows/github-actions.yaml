@@ -47,7 +47,7 @@ jobs:
         if: github.event_name == 'push'
         with:
           tf_actions_version: ${{ env.TF_VERSION }}
-          tf_actions_subcommand: 'apply -var db_password=$(TF_VAR_DB_PASSWORD)'
+          tf_actions_subcommand: 'apply -var db_password=${{secret.TF_VAR_DB_PASSWORD}}'
           tf_actions_working_dir: ${{ env.TF_WORKING_DIR }}
 
       - name: Run ansible script
