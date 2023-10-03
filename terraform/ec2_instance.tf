@@ -76,6 +76,12 @@ resource "aws_security_group" "allow_ssh_http" {
   }
 }
 
+variable "db_password" {
+  description = "Database administrator password"
+  type        = string
+  sensitive   = true
+}
+
 resource "aws_db_instance" "rds_instance" {
   allocated_storage      = 20
   db_name                = "mydb"
@@ -83,7 +89,7 @@ resource "aws_db_instance" "rds_instance" {
   engine_version         = "5.7"
   instance_class         = "db.t2.micro"
   username               = "wordpress_user"
-  password               = "wordpress"
+  password               = var.db_password
   parameter_group_name   = "default.mysql5.7"
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.allow_to_db.id]
