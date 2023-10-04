@@ -122,8 +122,12 @@ output "elastic_ip" {
   value = aws_eip.ec2_eip.public_ip
 }
 
+variable "ssh_pub_key" {
+  description = "SSH public key"
+  type        = string
+}
 
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDI1vn54yigXEXIsoVcqtNescpnvHza4nS8izP/0ZfMuPYZf2bNvtvlJqSPWb/Qjmx+4ib5PlDYiZ67rkEAvusXjidZjIn/RTYB9Ge7IJw/C34ljhjhANxFMUnA8Vk31StKTCsATXVMzNVXVUxlqi5jE4YuLipYluiwOWHOD0l0R5RDkHfD1vyYqTJDMYy3iM8H6voyTuZiAuC+W3e38ZDEMJmXH8zQens6C9Y5CHd4LlLVujaPlSbVdTgmxPtSCHrPPg7dviw3O84H60yD+lXXf9NZ/dNAjd7eGQusQ734qT10j5uE1NyVUX3wV+yfuhXIRGr3NlRRwYsle/RhKtKIvCumQkdtByWrasoHi+fM5u9KWCyF1xCzef6CvoqpQW5V0Z5IdVQ0Gkhi8BjlY+fO/JO5eY/uZE+MqtNnXY0T2w2aTw6uTSmOJ6CH3WjEPVGvcndXc3iI4ZNdyz80GS+6d8cb5WuHISTv+vQZWfDDNs/vibUzDQIqFm2ygSOS+GU= hamletsargsyan@Hamlets-MacBook-Pro.local"
+  public_key = var.ssh_pub_key
 }

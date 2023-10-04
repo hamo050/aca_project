@@ -50,7 +50,8 @@ jobs:
           tf_actions_subcommand: 'apply'
           tf_actions_working_dir: ${{ env.TF_WORKING_DIR }}
         env:
-          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD}}
+          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
+          TF_VAR_ssh_pub_key: ${{ secrets.SSH_PUB_KEY }}
 #        shell: bash
 #        run: |
 #          cd terraform
